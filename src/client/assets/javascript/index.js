@@ -81,20 +81,22 @@ async function handleCreateRace() {
 	const { player_id, track_id } = store
 
 	// const race = TODO - invoke the API call to create the race, then save the result
-	createRace(player_id, track_id)
+	const race = await createRace(player_id, track_id)
+
+	console.log(race)
 
 	// TODO - update the store with the race id
-	store.race_id = track_id
+	store.race_id = race.ID
 
 	// The race has been created, now start the countdown
 	// TODO - call the async function runCountdown
 	await runCountdown()
 
 	// TODO - call the async function startRace
-	await startRace()
+	await startRace(race.ID - 1)
 
 	// TODO - call the async function runRace
-	await runRace()
+	await runRace(race.ID - 1)
 }
 
 function runRace(raceID) {
@@ -383,10 +385,9 @@ function getRace(id) {
 function startRace(id) {
 	return fetch(`${SERVER}/api/races/${id}/start`, {
 		method: 'POST',
-		...defaultFetchOpts(),
+		...defaultFetchOpts()
 	})
-		.then(res => res.json())
-		.catch(err => console.log("Problem with startRace request::", err))
+		.catch(err => console.log(`Trying to start race #${id}. Problem with startRace request: ${err}`))
 }
 
 function accelerate(id) {
