@@ -133,6 +133,7 @@ async function runCountdown() {
 }
 
 function handleSelectPodRacer(target) {
+	console.log('handleSelectPodRacer is called')
 	console.log("selected a pod", target.id)
 
 	// remove class selected from all racer options
@@ -145,9 +146,11 @@ function handleSelectPodRacer(target) {
 	target.classList.add('selected')
 
 	// TODO - save the selected racer to the store
+	store.player_id = target.id
 }
 
 function handleSelectTrack(target) {
+	console.log('handleSelectTrack function is called')
 	console.log("selected a track", target.id)
 
 	// remove class selected from all track options
@@ -160,6 +163,7 @@ function handleSelectTrack(target) {
 	target.classList.add('selected')
 
 	// TODO - save the selected track id to the store
+	store.track_id = target.id
 
 }
 
@@ -174,7 +178,7 @@ function handleAccelerate() {
 function renderRacerCars(racers) {
 	if (!racers.length) {
 		return `
-			<h4>Loading Racers...</4>
+			<h4>Loading Racers...</h4>
 		`
 	}
 
@@ -182,7 +186,7 @@ function renderRacerCars(racers) {
 
 	return `
 		<ul id="racers">
-			${reuslts}
+			${results}
 		</ul>
 	`
 }
@@ -203,7 +207,7 @@ function renderRacerCard(racer) {
 function renderTrackCards(tracks) {
 	if (!tracks.length) {
 		return `
-			<h4>Loading Tracks...</4>
+			<h4>Loading Tracks...</h4>
 		`
 	}
 
@@ -323,7 +327,7 @@ function getTracks() {
 	// GET request to `${SERVER}/api/tracks`
 	return fetch(`${SERVER}/api/tracks`, {
 		method: 'GET',
-		...defaultFetchOpts(),
+		...defaultFetchOpts()
 	})
 		.then(res => res.json())
 		.catch(err => console.log("Problem with getTracks request::", err))
@@ -333,11 +337,12 @@ function getRacers() {
 	// GET request to `${SERVER}/api/cars`
 	return fetch(`${SERVER}/api/cars`, {
 		method: 'GET',
-		...defaultFetchOpts(),
+		...defaultFetchOpts()
 	})
 		.then(res => res.json())
 		.catch(err => console.log("Problem with getRacers request::", err))
 }
+
 
 function createRace(player_id, track_id) {
 	player_id = parseInt(player_id)
