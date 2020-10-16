@@ -106,8 +106,6 @@ function runRace(raceID) {
 			getRace(raceID)
 				.then(res => {
 					if (res.status === 'in-progress') {
-						console.log('Race in progress')
-						console.log(res)
 						renderAt('#leaderBoard', raceProgress(res.positions))
 					} else if (res.status === 'finished') {
 						console.log('Race is finished')
@@ -122,8 +120,6 @@ function runRace(raceID) {
 	})
 		.catch(err => console.log(`Problem with runRace function: ${err.message}`))
 }
-
-
 
 
 async function runCountdown() {
@@ -291,11 +287,9 @@ function resultsView(positions) {
 }
 
 function raceProgress(positions) {
-	console.log('Positions from raceProgress function')
-	console.log(positions)
-	console.log('*********************')
-	let userPlayer = positions.find(e => e.id === store.player_id)
-	console.log(`User player: ${userPlayer}`)
+
+	let userPlayer = positions.find((e) => parseInt(e.id) === parseInt(store.player_id))
+
 	userPlayer.driver_name += " (you)"
 
 	positions = positions.sort((a, b) => (a.segment > b.segment) ? -1 : 1)
@@ -401,10 +395,11 @@ function startRace(id) {
 }
 
 function accelerate(id) {
+
 	// POST request to `${ SERVER } /api/races / ${ id } /accelerate`
 	// options parameter provided as defaultFetchOpts
 	// no body or datatype needed for this request
-	return fetch(`${SERVER}/api/races/${id}/accelerate`, {
+	return fetch(`${SERVER}/api/races/${id + 1}/accelerate`, {
 		method: 'POST',
 		...defaultFetchOpts()
 	})
