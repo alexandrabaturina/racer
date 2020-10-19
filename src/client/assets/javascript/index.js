@@ -1,7 +1,7 @@
 // PROVIDED CODE BELOW (LINES 1 - 80) DO NOT REMOVE
 
 // The store will hold all information needed globally
-var store = {
+let store = {
 	track_id: undefined,
 	player_id: undefined,
 	race_id: undefined,
@@ -75,6 +75,12 @@ async function handleCreateRace() {
 
 	// TODO - Get player_id and track_id from the store
 	const { player_id, track_id } = store
+
+	// check for a valid player_id and track_id
+	if (!track_id || !player_id) {
+		alert(`Please select track and racer to start the race!`)
+		return
+	}
 
 	// const race = TODO - invoke the API call to create the race, then save the result
 	const race = await createRace(player_id, track_id)
