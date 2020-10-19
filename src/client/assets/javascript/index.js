@@ -83,24 +83,28 @@ async function handleCreateRace() {
 	}
 
 	// const race = TODO - invoke the API call to create the race, then save the result
-	const race = await createRace(player_id, track_id)
+	try {
+		const race = await createRace(player_id, track_id)
 
-	// render starting UI
-	renderAt('#race', renderRaceStartView(race.Track, race.Cars))
+		// render starting UI
+		renderAt('#race', renderRaceStartView(race.Track, race.Cars))
 
-	console.log(`Race #${race.ID} created`)
+		console.log(`Race #${race.ID} created`)
 
-	// TODO - update the store with the race id
-	store.race_id = race.ID - 1
+		// TODO - update the store with the race id
+		store.race_id = race.ID - 1
 
-	// TODO - call the async function runCountdown
-	await runCountdown()
+		// TODO - call the async function runCountdown
+		await runCountdown()
 
-	// TODO - call the async function startRace
-	await startRace(store.race_id)
+		// TODO - call the async function startRace
+		await startRace(store.race_id)
 
-	// TODO - call the async function runRace
-	await runRace(store.race_id)
+		// TODO - call the async function runRace
+		await runRace(store.race_id)
+	} catch (err) {
+		console.log(`Something went wrong while creating a race: ${err}`)
+	}
 }
 
 function runRace(raceID) {
