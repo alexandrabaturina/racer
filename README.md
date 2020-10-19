@@ -51,6 +51,9 @@ Below is a list of the API endpoints and the shape of the data they return.
 To run the project locally,
 1. Clone this repo.
 2. ```cd``` into project directory.
+3. Start the server.
+4. In another terminal tab, start the frontend.
+5. Access http://localhost:3000 in your browser.
 
 ### Starting Server
 To run the server, locate your operating system and run the associated command in your terminal at the root of the project.
@@ -69,7 +72,7 @@ If you are on an older OS and the above command doesn't run for you - or if you 
 | Windows | ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-32.exe |
 | Linux (Ubuntu, etc..)| ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-linux-32 | 
 
-**NOTE:** this process will use your terminal tab, so you will have to open a new tab and navigate back to the project root to start the front end.
+**NOTE:** This process will use your terminal tab, so you will have to open a new tab and navigate back to the project root to start the front end.
 
 ### Starting Frontend
 To start the frontend, run one of the following commands from the root folder.
@@ -78,7 +81,6 @@ npm install && npm start
 ```
 ```
 yarn && yarn start
-```
-  
+```  
 ## Authors
 Alexandra Baturina
